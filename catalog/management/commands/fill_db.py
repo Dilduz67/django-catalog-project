@@ -19,9 +19,9 @@ class Command(BaseCommand):
         Category.objects.bulk_create(category_fill)
         
         product_list = [
-                {'id': '1','name': 'Товар1', 'description': 'Описание1', 'preview': '', 'category': Category(id='1'),'price':'100','created':'20230101','last_upd':''},
-                {'id': '2','name': 'Товар2', 'description': 'Описание2', 'preview': '', 'category':Category(id='2'),'price':'200','created':'20230202','last_upd':''},
-                {'id': '3','name': 'Товар3', 'description': 'Описание3', 'preview': '', 'category':Category(id='3'),'price':'300','created':'20230303','last_upd':''},
+                {'id': '1','name': 'Товар1', 'description': 'Описание1', 'preview': 'pic1.jpg', 'category': Category(id='1'),'price':'100','created':'20230101','last_upd':''},
+                {'id': '2','name': 'Товар2', 'description': 'Описание2', 'preview': 'pic2.jpg', 'category':Category(id='2'),'price':'200','created':'20230202','last_upd':''},
+                {'id': '3','name': 'Товар3', 'description': 'Описание3', 'preview': 'pic3.jpg', 'category':Category(id='3'),'price':'300','created':'20230303','last_upd':''},
                  ]
 
         product_fill =[]
