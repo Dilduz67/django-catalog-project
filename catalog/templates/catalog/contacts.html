@@ -1,0 +1,38 @@
+{% extends 'catalog/base.html' %}
+{% load tags_filters %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">{{ object.name }}</h1>
+</div>
+
+<div class="container">
+    <div class="row text-start">
+        <div class="col-lg-9 col-md-6 col-sm-12">
+            <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <td class="w-25">Описание</td>
+                            <td>{{ object.description|slice:"100" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-25">Стоимость</td>
+                            <td>{{ object.price }}</td>
+                        </tr>
+                        <tr>
+                            <!--td class="w-25">Изображение</td-->
+                            <!--td>{{ object.preview }}</td-->
+                            <img src="{% mediapath object.preview %}" class="img-thumbnail" alt="Card image" width="304" height="236">
+                        </tr>
+                        <tr>
+                            <td class="w-25">Добавлен</td>
+                            <td>{{ object.created }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

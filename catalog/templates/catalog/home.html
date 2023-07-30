@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+
+{% block content %}
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Skystore</h1>
+    <p class="lead">Список товаров</p>
+</div>
+
+<div class="container">
+    <div class="row text-center">
+        {% for object in object_list %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">{{ object }}</h4>
+                </div>
+                <div class="card-body">
+                    <p class="card-title pricing-card-title">Стоимость {{ object.price }}</p>
+                    <p>{{ object.description|slice:"100" }}</p>
+                    <!--button type="button"  class="btn btn-lg btn-block btn-outline-primary">Подробнее</button-->
+                    <a href="{% url 'catalog:details' object.id %}" type="button"  class="btn btn-lg btn-block btn-outline-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
