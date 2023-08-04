@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 
 NULLABLE = {'null': True, 'blank': True}
@@ -35,3 +36,13 @@ class Product(models.Model):
         verbose_name = 'товар' # Настройка для наименования одного объекта
         verbose_name_plural = 'товары' # Настройка для наименования набора объектов
         ordering = ("name",)
+
+class Version(models.Model):
+    product=models.ForeignKey(Product, on_delete = models.CASCADE, verbose_name="прожукт")
+    version_number = models.IntegerField(verbose_name='номер версии')
+    version_name = models.CharField(max_length=100, verbose_name='название версии')
+    version_is_active = models.BooleanField()
+
+    class Meta:
+        verbose_name = 'версия'
+        verbose_name_plural = 'версии'
