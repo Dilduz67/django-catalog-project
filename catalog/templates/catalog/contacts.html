@@ -29,7 +29,12 @@
                             <td class="w-25">Добавлен</td>
                             <td>{{ object.created }}</td>
                         </tr>
+                        <tr>
+                            <td class="w-25">Кем создан</td>
+                            <td>{{ object.owner|default:"Не определён" }}</td>
+                        </tr>
                     </table>
+                    <a href="{% url 'catalog:list' %}" class="btn btn-outline-secondary">Назад</a>
                 </div>
             </div>
         </div>

@@ -18,6 +18,7 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit" class="btn btn-success">Сохранить</button>
+                        <a href="{% url 'catalog:list' %}" class="btn btn-outline-secondary">Назад</a>
                 </div>
                 <div class="card-footer"></div>
             </div>
