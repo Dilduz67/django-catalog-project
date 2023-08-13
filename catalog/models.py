@@ -1,4 +1,4 @@
-from django import forms
+from django.conf import settings
 from django.db import models
 
 NULLABLE = {'null': True, 'blank': True}
@@ -27,8 +27,9 @@ class Product(models.Model):
     price = models.IntegerField(verbose_name='цена за покупку')
     created = models.DateTimeField(auto_now=True, verbose_name='дата создания')
     last_upd = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения',**NULLABLE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='владелец', **NULLABLE)
 
-    def __str__(self): 
+    def __str__(self):
         # Строковое отображение объекта
         return f'{self.name}'
 
