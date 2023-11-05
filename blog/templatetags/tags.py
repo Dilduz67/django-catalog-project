@@ -3,5 +3,5 @@ from django import template
 register = template.Library()
 
 @register.simple_tag
-def mediapath(val):
+def media_path(val):
     return f'/media/{val}'

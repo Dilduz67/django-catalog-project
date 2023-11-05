@@ -5,7 +5,7 @@ from catalog.models import NULLABLE
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(max_length=20, verbose_name='юзер', unique=True, **NULLABLE)
     email = models.EmailField(unique=True, verbose_name='почта')
 
     phone = models.CharField(max_length=20, verbose_name='телефон', **NULLABLE)

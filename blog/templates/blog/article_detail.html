@@ -1,5 +1,5 @@
 {% extends 'catalog/base.html' %}
-{% load tags_filters %}
+{% load tags %}
 
 {% block content %}
     <div class="row">
@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-title">Заголовок: {{ object.title }} {{ object.slug }}</div>
                 <div class="card-body">
-                    <img src="{% mediapath object.preview %}" class="img-thumbnail" alt="Preview" width="304" height="236">
+                    <img src="{% media_path object.preview %}" class="img-thumbnail" alt="Preview" width="304" height="236">
                     <p class="card-text">Содержимое: {{ object.content }}</p>
                     <p class="card-text">Дата создания: {{ object.create_date }}</p>
 

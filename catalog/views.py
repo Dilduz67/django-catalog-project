@@ -1,10 +1,11 @@
 from django.forms import inlineformset_factory
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-from catalog.forms import ProductForm, VersionForm
-#from django.http import HttpResponse
+from catalog.forms import ProductForm, VersionForm, ManagersProductForm
+from django.http import HttpResponse
 from catalog.models import Product, Version
 
 
@@ -41,6 +42,7 @@ class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     success_url=reverse_lazy('catalog:list')
+    permission_required = 'catalog.change_product'
 
     def get_context_data(self, **kwargs):
         context_date=super().get_context_data(**kwargs)
@@ -63,3 +65,37 @@ class ProductUpdateView(UpdateView):
             formset.save()
 
         return super().form_valid(form)
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        #if self.object.owner != self.request.user:
+        #    raise Http404
+        return self.object
+
+class ProductManagersUpdate(UpdateView):
+    model = Product
+    form_class = ManagersProductForm
+    permission_required = 'catalog.change_product'
+    success_url=reverse_lazy('catalog:list')
+
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        SubjectFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
+
+        if self.request.method == 'POST':
+            context_data['formset'] = SubjectFormset(self.request.POST, instance=self.object)
+        else:
+            context_data['formset'] = SubjectFormset(instance=self.object)
+
+        return context_data
+
+    def form_valid(self, form):
+        formset = self.get_context_data()['formset']
+        self.object = form.save()
+        if formset.is_valid:
+            formset.instance = self.object
+            formset.save()
+
+        return super().form_valid(form)
+
+

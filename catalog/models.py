@@ -28,6 +28,7 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now=True, verbose_name='дата создания')
     last_upd = models.DateTimeField(auto_now=True, verbose_name='дата последнего изменения',**NULLABLE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, verbose_name='владелец', **NULLABLE)
+    is_published = models.BooleanField(default=False, verbose_name="опубликовано")
 
     def __str__(self):
         # Строковое отображение объекта
@@ -37,6 +38,21 @@ class Product(models.Model):
         verbose_name = 'товар' # Настройка для наименования одного объекта
         verbose_name_plural = 'товары' # Настройка для наименования набора объектов
         ordering = ("name",)
+
+        permissions = [
+                    (
+                        'set_published',
+                        'Can publish posts'
+                    ),
+                    (
+                        'set_category',
+                        'Can change category'
+                    ),
+                    (
+                        'set_description',
+                        'Can change description'
+                    ),
+                ]
 
 class Version(models.Model):
     product=models.ForeignKey(Product, on_delete = models.CASCADE, verbose_name="прожукт")
