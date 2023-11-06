@@ -68,8 +68,8 @@ class ProductUpdateView(UpdateView):
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
-        #if self.object.owner != self.request.user:
-        #    raise Http404
+        if self.object.owner != self.request.user:
+            raise Http404
         return self.object
 
 class ProductManagersUpdate(UpdateView):
