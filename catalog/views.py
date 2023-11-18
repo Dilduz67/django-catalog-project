@@ -2,20 +2,37 @@ from django.forms import inlineformset_factory
 from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from catalog.forms import ProductForm, VersionForm, ManagersProductForm
 from django.http import HttpResponse
 from catalog.models import Product, Version
+from catalog.services import  get_categories
 
+# Create your views her#
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
+    context_object_name = 'products'
+    queryset = Product.objects.all()
 
-# Create your views here.
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()
+        categories = get_categories()
+        #for product in products:
+        #    product.active_version = product.versions.filter(is_active=True).first()
+        context['products'] = products
+        context['categories'] = categories
+        return context
+"""
 def home_page(request):
     product_list = Product.objects.all()
     context = {"object_list" : product_list,
                "title": "Главная"
                }
     return render(request, 'catalog/home.html',context)
+"""
 
 def contacts_page(request, id):
     product=Product.objects.get(pk=id)
